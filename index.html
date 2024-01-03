@@ -215,32 +215,24 @@
             appId: "1:652001514408:web:5821ba5d13d555adf0839d"
         };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+       
+        const updateViewCount = async () => {
+            try {
+                const response = await fetch('https://api.countapi.xyz/hit/www.garxu.xyz/visits?callback=cb');
+                const data = await response.json();
 
-        // Initialize Firebase Realtime Database
-        const database = firebase.database();
-        const viewersCountRef = database.ref('viewersCount');
+                document.getElementById('viewCount').innerText = `Page Viewers: ${data.value}`;
+            } catch (error) {
+                console.error('Error updating count:', error);
+            }
+        };
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Listen for changes in the viewersCount and update the UI
-            viewersCountRef.on('value', (snapshot) => {
-                const count = snapshot.val();
-                document.getElementById('viewCount').innerText = `Page Viewers: ${count}`;
-            });
-
-            // Increment viewers count when a new user connects
-            viewersCountRef.transaction((count) => {
-                return (count || 0) + 1;
-            });
-
-            // Decrement viewers count when the user closes the page
-            window.addEventListener('beforeunload', () => {
-                viewersCountRef.transaction((count) => {
-                    return (count || 0) - 1;
-                });
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            updateViewCount();
+            // Update count every 10 seconds (adjust as needed)
+            setInterval(updateViewCount, 10000);
         });
+   
     
     
 </script>
