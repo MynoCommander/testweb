@@ -203,12 +203,24 @@
   }
   return t.join(ts) + (n[1]? dp + n[1] : '');
 }
-    fetch('https://ched.rip/viewcounter')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('viewCount').innerText = formatNumber(parseInt(data), 0);
-        })
-        .catch(error => console.error('Error fetching data:', error));
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if the count is already in localStorage
+            let count = localStorage.getItem("pageViewCount");
+
+            // If not, initialize it to 0
+            if (count === null) {
+                count = 0;
+            }
+
+            // Increment the count and display it
+            count++;
+            document.getElementById("viewCount").innerText = `Page Viewers: ${count}`;
+
+            // Update the count in localStorage
+            localStorage.setItem("pageViewCount", count.toString());
+        });
+    </script>
 </script>
     
 
