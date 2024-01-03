@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ched.rip</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Welcome to paradise." />
+    <meta property="og:title" content="Garxu Space"/>
+    <meta property="og:description" content="Welcome to paradise.">
+    <meta property="og:image" content="https://ched.rip/assets/others/embed.gif">
+    <meta property="og:url" content="https://profile.garxu.xyz/" />
+    <meta name="theme-color" content="#9b00bb"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="shortcut icon" href="https://ched.rip/assets/icons/Makima/tab%20banner.gif" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="ched.rip/assets/stylesheets/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+
+</head>
+
+
+
+<script type="text/javascript" src="assets/javascript/app.js"></script>
+
+<div id="main">
+    <table class="box">
+        <tbody>
+            <tr>
+                <td><span id="line1" style="white-space: pre;"></span></td>
+            </tr>
+            <tr>
+                <td><span id="line2" style="white-space: normal;"></span></td>
+            </tr>
+            <tr>
+                <td><span id="line3 space" style="white-space: pre;"></span></td>
+            </tr>
+            <tr>
+                <td><span id="line4" style="white-space: pre;"></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container music-player" style="text-align: center;">
+    <div id="musicPlayer" style="background-color: transparent; padding: 10px; border-radius: 5px; margin: 0 auto;">
+        <button id="prev" class="player-btn">
+            <object type="image/svg+xml" data="https://ched.rip/assets/images/back.svg" class="button-svg">Previous</object>
+        </button>
+        <button id="playPause" class="player-btn">
+            <img id="playPauseIcon" src="https://ched.rip/assets/images/play.svg" class="button-svg" alt="Play/Pause">
+        </button>
+        <button id="next" class="player-btn">
+            <object type="image/svg+xml" data="https://ched.rip/assets/images/next.svg" class="button-svg">Next</object>
+        </button>
+        <audio id="audioPlayer"></audio>
+
+        <div id="nowPlayingContainer"></div>
+            <div id="nowPlayingText" class="now-playing">Now Playing - </div>
+    </div>
+</div>
+
+
+
+<div class="container" style="display: none;">
+    <h1 class="brand-header portfolio-experiment">
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_BLANK" class="experiment-title">ched.rip</a>
+    </h1>
+
+    <p>
+        <span id="brand"></span>
+        <div style="margin-top: 10px;">
+            <img src="ched.rip/assets/badges/verified.gif" width="15px" span class="cursor-pointer text-xl" title="Verified Legit">
+            <img src="ched.rip/assets/badges/chedderslice.png" width="15px" span class="cursor-pointer text-xl" title="Official Cheddar">
+            <img src="ched.rip/assets/badges/Cheddlatron.svg" width="15px" span class="cursor-pointer text-xl" title="Cheddlatron Developer">
+            <img src="ched.rip/assets/badges/plsgers.gif" width="15px" span class="cursor-pointer text-xl" title="The Big Cheese">
+        </div>
+    </p>
+
+    
+    <div id="viewcounterContainer" class="sparkle-background">
+        <span id="viewcounter" style="filter: drop-shadow(8px 8px 10px rgba(255, 34, 255, 0.315)); color: #afafaf; font-weight: bold;">
+            👁️: <span id="viewCount" style="color: inherit; font-weight: inherit;">Loading...</span>
+        </span>
+    </div>
+    <br>    
+    <br>
+    <p>
+
+        <img src="https://api.status.gg/discord/787915661186957312?theme%5Bbackground%5D%5Bprimary%5D=5b85d9&theme%5Bbackground%5D%5Bsecondary%5D=000000&theme%5Bseparator%5D=0000000a&backgroundImage=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FGHKlVpc6ThFB9Zk41M%2Fgiphy.gif" width="350px" ></img>
+    </p>
+</div>
+
+<script>
+    let songList = [
+        'https://ched.rip/assets/music/Funk Soda.mp3',
+        'https://ched.rip/assets/music/Shadow Wizard Money Gang.mp3',
+        'https://ched.rip/assets/music/Rapp Snitch Knishes.mp3',
+        'https://ched.rip/assets/music/Lights.mp3',
+        'https://ched.rip/assets/music/One Beer.mp3',
+    ];
+    let currentSongIndex = 0;
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    function loadSong(songIndex) {
+        const songPath = songList[songIndex];
+        const songName = songPath.split('/').pop().split('.').shift().replace(/_/g, ' ');
+        document.getElementById('nowPlayingText').textContent = `Now Playing - ${songName}`;
+        audioPlayer.src = songList[songIndex];
+        audioPlayer.load();
+    }
+
+    function togglePlayPause() {
+        if (audioPlayer.paused || audioPlayer.ended) {
+            audioPlayer.play();
+        } else {
+            audioPlayer.pause();
+        }
+        updatePlayPauseIcon();
+    }
+
+    function updatePlayPauseIcon() {
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        if (audioPlayer.paused) {
+            playPauseIcon.src = 'https://ched.rip/assets/images/play.svg';
+        } else {
+            playPauseIcon.src = 'https://ched.rip/assets/images/pause.svg';
+        }
+    }
+
+    document.getElementById('playPause').addEventListener('click', togglePlayPause);
+
+    document.getElementById('prev').addEventListener('click', function() {
+        currentSongIndex = (currentSongIndex - 1 + songList.length) % songList.length;
+        loadSong(currentSongIndex);
+        audioPlayer.play();
+        updatePlayPauseIcon();
+    });
+
+    document.getElementById('next').addEventListener('click', function() {
+        currentSongIndex = (currentSongIndex + 1) % songList.length;
+        loadSong(currentSongIndex);
+        audioPlayer.play();
+        updatePlayPauseIcon();
+    });
+
+    audioPlayer.addEventListener('ended', updatePlayPauseIcon);
+
+    // waits for intro to finish before playing music
+    document.addEventListener('introFinished', function() {
+        loadSong(currentSongIndex);
+        audioPlayer.play().then(() => {
+            console.log("Music started after intro");
+            updatePlayPauseIcon();
+        }).catch(error => {
+            console.log("Music play error after intro:", error);
+        });
+
+        audioPlayer.addEventListener('ended', function() {
+        currentSongIndex = (currentSongIndex + 1) % songList.length;
+        loadSong(currentSongIndex);
+        audioPlayer.play();
+        updatePlayPauseIcon();
+    });
+    });
+</script>
+
+<script>
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    })
+    
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    
+    function ctrlShiftKey(e, keyCode) {
+      return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+    }
+    
+    document.onkeydown = (e) => {
+      if (
+        event.keyCode === 123 ||
+        ctrlShiftKey(e, 'I') ||
+        ctrlShiftKey(e, 'J') ||
+        ctrlShiftKey(e, 'C') ||
+        (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
+      )
+        return false;
+    };
+</script>
+
+<script>
+    function formatNumber(n, p, ts, dp) {
+  var t = [];
+  if (typeof p  == 'undefined') p  = 2;
+  if (typeof ts == 'undefined') ts = ',';
+  if (typeof dp == 'undefined') dp = '.';
+
+  n = Number(n).toFixed(p).split('.');
+  for (var iLen = n[0].length, i = iLen? iLen % 3 || 3 : 0, j = 0; i <= iLen; i+=3) {
+    t.push(n[0].substring(j, i));
+    j = i;
+  }
+  return t.join(ts) + (n[1]? dp + n[1] : '');
+}
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if the count is already in localStorage
+            let count = localStorage.getItem("pageViewCount");
+
+            // If not, initialize it to 0
+            if (count === null) {
+                count = 0;
+            }
+
+            // Increment the count and display it
+            count++;
+            document.getElementById("viewCount").innerText = `Page Viewers: ${count}`;
+
+            // Update the count in localStorage
+            localStorage.setItem("pageViewCount", count.toString());
+        });
+    </script>
+</script>
+    
+
+    <div class="marquee-container" style="visibility: hidden;">
+        <pre>|<div id="marquee"></div>|</pre>
+    </div>
+
+    <div class="background" style="display: none;">
+        <div id="pattern"></div>
+
+        <audio id="audio" loop="">
+            <script>
+                const audio = document.getElementById('audio');
+
+                app.audioElement = audio;
+                app.audioElement.volume = 0;
+            </script>
+        </audio>
+
+        <video id="background" loop="">
+            <source src="https://ched.rip/assets/others/Background%20Video.mp4" type="video/mp4" />
+            <script>
+                const video = document.getElementById('background');
+
+                app.videoElement = video;
+                app.videoElement.volume = 0;
+            </script>
+        </video>
+    </div>
+
+    <div class="top-right">
+        <i><a class="skip">Blank page? Click to Skip or Disable Adblock!</a></i>
+    </div>
+
+    <div class="footer">
+        <i><a href="#" target="_BLANK">Discord</a></i>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="ched.rip/assets/javascript/lib/jquery.marquee.min.js"></script>
+    <script type="text/javascript" src="ched.rip/assets/javascript/lib/jquery.cookie.js"></script>
+    <script type="text/javascript" src="ched.rip/assets/javascript/lib/typed.min.js"></script>
+    <script type="text/javascript" src="ched.rip/assets/javascript/portfolio.js"></script>
+    <script src="assets/javascript/oneko.js"></script>
+</body>
+
+    </html>
+        
