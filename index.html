@@ -204,23 +204,45 @@
   return t.join(ts) + (n[1]? dp + n[1] : '');
 }
     
-        document.addEventListener("DOMContentLoaded", function () {
-            // Check if the count is already in localStorage
-            let count = localStorage.getItem("pageViewCount");
+        
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB6B8uWIHF-O3nOsIdxTOod_KasE8umyoU",
+            authDomain: "asiaboxteam.firebaseapp.comYOUR_AUTH_DOMAIN",
+            projectId: "asiaboxteam",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "652001514408",
+            appId: "1:652001514408:web:5821ba5d13d555adf0839d"
+        };
 
-            // If not, initialize it to 0
-            if (count === null) {
-                count = 0;
-            }
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
 
-            // Increment the count and display it
-            count++;
-            document.getElementById("viewCount").innerText = `Page Viewers: ${count}`;
+        // Initialize Firebase Realtime Database
+        const database = firebase.database();
+        const viewersCountRef = database.ref('viewersCount');
 
-            // Update the count in localStorage
-            localStorage.setItem("pageViewCount", count.toString());
+        document.addEventListener('DOMContentLoaded', function () {
+            // Listen for changes in the viewersCount and update the UI
+            viewersCountRef.on('value', (snapshot) => {
+                const count = snapshot.val();
+                document.getElementById('viewCount').innerText = `Page Viewers: ${count}`;
+            });
+
+            // Increment viewers count when a new user connects
+            viewersCountRef.transaction((count) => {
+                return (count || 0) + 1;
+            });
+
+            // Decrement viewers count when the user closes the page
+            window.addEventListener('beforeunload', () => {
+                viewersCountRef.transaction((count) => {
+                    return (count || 0) - 1;
+                });
+            });
         });
-    </script>
+    
+    
 </script>
     
 
