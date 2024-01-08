@@ -238,14 +238,14 @@
         let visitorCount = localStorage.getItem('visitorCount') || 0;
 
         // Display initial count
-        document.getElementById('visitorCount').innerText = visitorCount;
+        document.getElementById('viewCount').innerText = visitorCount;
 
         // Increment count on page refresh
         visitorCount++;
-        document.getElementById('visitorCount').innerText = visitorCount;
+        document.getElementById('viewCount').innerText = visitorCount;
 
         // Update localStorage with the new count
-        localStorage.setItem('visitorCount', visitorCount.toString());
+        localStorage.setItem('viewCount', visitorCount.toString());
             </script>
         </video>
     </div>
