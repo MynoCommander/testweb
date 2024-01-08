@@ -92,7 +92,7 @@
     </p>
 </div>
 
-<script>
+ <script>
     let songList = [
         'https://ched.rip/assets/music/Funk Soda.mp3',
         'https://ched.rip/assets/music/Shadow Wizard Money Gang.mp3',
@@ -203,34 +203,16 @@
   }
   return t.join(ts) + (n[1]? dp + n[1] : '');
 }
-    
-        
-      
+    const countEl = document.getElementById("count");
+      countvisits();
 
-       
-        
-        // Initial viewers count (for demonstration purposes)
-        let currentViewers = 0;
-
-        // Function to update viewers count
-        function updateViewersCount() {
-            // Simulate increasing viewers count (replace this with your actual logic)
-            currentViewers += Math.floor(Math.random() * 5);
-
-            // Update the viewers count on the HTML page
-            document.getElementById('viewCount').textContent = currentViewers;
-        }
-
-        // Update viewers count every 5 seconds (you can adjust the interval)
-        setInterval(updateViewersCount, 5000);
-
-        // Initial update when the page loads
-        updateViewersCount();
-    
-   
-    
-    
-</script>
+      function countvisits() {
+        fetch('https://api.countapi.xyz/update/laptop/mouse/?amount=1')
+          .then((res) => res.json())
+          .then((res) => {
+            countEl.innerHTML = res.value;
+          });
+      }</script>
     
 
     <div class="marquee-container" style="visibility: hidden;">
@@ -250,7 +232,7 @@
         </audio>
 
         <video id="background" loop="">
-            <source src="https://i.giphy.com/mgAgjH8JU55jq.webp" />
+            <source src="https://ched.rip/assets/others/Background%20Video.mp4" type="video/mp4" />
             <script>
                 const video = document.getElementById('background');
 
@@ -277,4 +259,4 @@
 </body>
 
     </html>
-        
+    
