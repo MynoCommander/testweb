@@ -234,18 +234,18 @@
                 app.videoElement.volume = 0;
             </script>
             <script> 
-                // Retrieve current visitor count from localStorage
-        let visitorCount = localStorage.getItem('visitorCount') || 0;
+                // Retrieve current visitor count from sessionStorage
+        let visitorCount = sessionStorage.getItem('viewCount') || 0;
 
         // Display initial count
         document.getElementById('viewCount').innerText = visitorCount;
 
-        // Increment count on page refresh
+        // Increment count on every visit
         visitorCount++;
         document.getElementById('viewCount').innerText = visitorCount;
 
-        // Update localStorage with the new count
-        localStorage.setItem('viewCount', visitorCount.toString());
+        // Update sessionStorage with the new count
+        sessionStorage.setItem('viewCount', visitorCount.toString());
             </script>
         </video>
     </div>
