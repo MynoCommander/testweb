@@ -122,7 +122,7 @@ const writeLine = (text, speed, timeout, callback) => {
 };
 
 $.getJSON(ipgeolocation, (data) => {
-    writeLine(['https://ched.rip/authenticating...', "Granting access to <span style='font-size: 14px; color: #e87aff;'>[Paradise]</span>..."], 30, () => {
+    writeLine(['https://google.com/garxu.xyz/access?n=429104', "Granting access to <span style='font-size: 14px; color: #e87aff;'>[Garxu.xyz]</span>Successful by Google."], 30, () => {
         if (app.skippedIntro) return;
 
         clearCursor();
