@@ -234,18 +234,38 @@
                 app.videoElement.volume = 0;
             </script>
             <script> 
-                // Retrieve current visitor count from sessionStorage
-        let visitorCount = sessionStorage.getItem('viewCount') || 0;
+                // Firebase configuration (replace with your own config)
+        const firebaseConfig = {
+            
+            apiKey: "AIzaSyCRYKuzjlZB0PzcouawWcy9teoszdmv08o",
+            authDomain: "garxu-8a8dc.firebaseapp.com",
+            projectId: "garxu-8a8dc",
+            storageBucket: "garxu-8a8dc.appspot.com",
+            messagingSenderId: "162031945703",
+            appId: "1:162031945703:web:8d07bd574470e9052f9f42",
+            
+        };
 
-        // Display initial count
-        document.getElementById('viewCount').innerText = visitorCount;
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the visitor count in the Firebase Realtime Database
+        const visitorCountRef = firebase.database().ref('viewCount');
+
+        // Retrieve and display the initial count
+        visitorCountRef.once('value', snapshot => {
+            let visitorCount = snapshot.val() || 0;
+            document.getElementById('viewCount').innerText = visitorCount;
+        });
 
         // Increment count on every visit
-        visitorCount++;
-        document.getElementById('viewCount').innerText = visitorCount;
+        visitorCountRef.transaction(count => (count || 0) + 1);
 
-        // Update sessionStorage with the new count
-        sessionStorage.setItem('viewCount', visitorCount.toString());
+        // Update count in real-time
+        visitorCountRef.on('value', snapshot => {
+            let visitorCount = snapshot.val() || 0;
+            document.getElementById('viewCount').innerText = visitorCount;
+        });
             </script>
         </video>
     </div>
