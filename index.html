@@ -234,40 +234,30 @@
                 app.videoElement.volume = 0;
             </script>
             <script> 
-                // Firebase configuration (replace with your own config)
-        const firebaseConfig = {
-            
-            apiKey: "AIzaSyCRYKuzjlZB0PzcouawWcy9teoszdmv08o",
-  authDomain: "garxu-8a8dc.firebaseapp.com",
-  projectId: "garxu-8a8dc",
-  storageBucket: "garxu-8a8dc.appspot.com",
-  messagingSenderId: "162031945703",
-  appId: "1:162031945703:web:8d07bd574470e9052f9f42",
-  measurementId: "G-HS7W56LMKH"
+                const count=document.getElementById("viewCount");
+totalUpdate():
 
-            
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Reference to the visitor count in the Firebase Realtime Database
-        const visitorCountRef = firebase.database().ref('viewCount');
-
-        // Retrieve and display the initial count
-        visitorCountRef.once('value', snapshot => {
-            let visitorCount = snapshot.val() || 0;
-            document.getElementById('viewCount').innerText = visitorCount;
-        });
-
-        // Increment count on every visit
-        visitorCountRef.transaction(count => (count || 0) + 1);
-
-        // Update count in real-time
-        visitorCountRef.on('value', snapshot => {
-            let visitorCount = snapshot.val() || 0;
-            document.getElementById('viewCount').innerText = visitorCount;
-        });
+function totalUpdate{
+    fetch("https://api.countapi.xyz/hit/www.garxu.xyz?amount-1")
+    .then((res)=>res.json())
+    .then((res)=>{
+        count.innerHTML=res.value;
+        val(count,0,res.value,1000);
+    });
+}
+function val(obj,start,end,duration){
+    let startStamp=null;
+    const step=(st)=>{
+        if (!startStamp) startingStamp=st;
+        const progress=Math.min((st-startingStamp)/duration,1);
+        obj.innerHTML=Math.floor(progress*(end-start) + start);
+        if (progress<1){
+            window.requestAnnimationFrame(step);
+        }
+    };
+    window.requestAnnimationFrame(step);
+}
+    
             </script>
         </video>
     </div>
