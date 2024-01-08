@@ -244,6 +244,17 @@
     <div class="footer">
         <i><a href="https://discord.gg/9FFDd3y9Rv" target="_BLANK">Discord</a></i>
     </div>
+    <script>
+        const countElement = document.getElementById('viewCount');
+
+update();
+
+function update() {
+	fetch('https://api.countapi.xyz/update/samcode/pen/?amount=1').then(res => res.json()).then(res => {
+		countElement.innerHTML = res.value;
+	})
+}
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://ched.rip/assets/javascript/lib/jquery.marquee.min.js"></script>
