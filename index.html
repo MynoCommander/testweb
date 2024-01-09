@@ -247,17 +247,27 @@
         <i><a href="https://discord.gg/9FFDd3y9Rv" target="_BLANK">Discord</a></i>
     </div>
     <script>
-        // Get the current visitor count from localStorage or set it to 0 if not present
-        let visitorCount = localStorage.getItem('viewCount') || 0;
+        // Initialize Firebase with your project config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRYKuzjlZB0PzcouawWcy9teoszdmv08o",
+            authDomain: "garxu-8a8dc.firebaseapp.com",
+	    databaseURL: "https://garxu-8a8dc-default-rtdb.firebaseio.com/",
+            projectId: "garxu-8a8dc",
+            storageBucket: "garxu-8a8dc.appspot.com",
+            messagingSenderId: "162031945703",
+            appId: "1:162031945703:web:8d07bd574470e9052f9f42",
+        };
+        firebase.initializeApp(firebaseConfig);
 
-        // Increment the count
-        visitorCount++;
+        // Get a reference to the database
+        const database = firebase.database();
 
-        // Display the count
-        document.getElementById('viewCount').innerText = visitorCount;
-
-        // Save the updated count to localStorage
-        localStorage.setItem('viewCount', visitorCount.toString());
+        // Get the current visitor count from the database
+        const countRef = database.ref('viewCount');
+        countRef.on('value', (snapshot) => {
+            const viewCount = snapshot.val();
+            document.getElementById('viewCount').innerText = visitorCount;
+        });
     </script>
 	
 
