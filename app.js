@@ -10,7 +10,7 @@ class _app {
     backgroundToggler = false;
     shouldIgnoreVideo = false;
     effects = ['bounce', 'flash', 'pulse', 'rubberBand', 'shake', 'swing', 'tada', 'wobble', 'jello'];
-    brandDescription = ['Gfx Designer', 'Garxu Developer', 'Official Garxu'];
+    brandDescription = ['GFX OWNER', 'Shop Garxu', 'Official Garxu'];
 
     titleChanger = (text, delay) => {
         if (!text) return;
