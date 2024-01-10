@@ -248,27 +248,27 @@
         <i><a href="https://discord.gg/9FFDd3y9Rv" target="_BLANK">Discord</a></i>
     </div>
     <script>
-        // Initialize Firebase with your project config
-        const firebaseConfig = {
-            apiKey: "AIzaSyCRYKuzjlZB0PzcouawWcy9teoszdmv08o",
-            authDomain: "garxu-8a8dc.firebaseapp.com",
-            databaseURL: "https://garxu-8a8dc-default-rtdb.firebaseio.com/",
-            projectId: "garxu-8a8dc",
-            storageBucket: "garxu-8a8dc.appspot.com",
-            messagingSenderId: "162031945703",
-            appId: "1:162031945703:web:8d07bd574470e9052f9f42"
+        const updateVisitorCount = async () => {
+            try {
+                const response = await fetch('counter.txt');
+                const count = await response.text();
+                const updatedCount = parseInt(count, 10) + 1;
+
+                // Update the count on the page
+                document.getElementById('visitorCount').innerText = updatedCount;
+
+                // Update the count in the file
+                await fetch('counter.txt', {
+                    method: 'PUT',
+                    body: updatedCount.toString(),
+                });
+            } catch (error) {
+                console.error('Error updating visitor count:', error);
+            }
         };
-        firebase.initializeApp(firebaseConfig);
 
-        // Get a reference to the database
-        const database = firebase.database();
-
-        // Get the current visitor count from the database
-        const countRef = database.ref('visitorCount');
-        countRef.on('value', (snapshot) => {
-            const visitorCount = snapshot.val();
-            document.getElementById('viewCount').innerText = visitorCount;
-        });
+        // Call the function on page load
+        window.onload = updateVisitorCount;
     </script>
 	
 
