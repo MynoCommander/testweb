@@ -250,9 +250,7 @@
    <script>
         const updateVisitorCount = async () => {
             try {
-                // Cache-busting mechanism
-                const cacheBuster = new Date().getTime();
-                const response = await fetch(`counter.txt?cb=${cacheBuster}`);
+                const response = await fetch('counter.txt');
                 const count = parseInt(await response.text(), 10) || 0;
 
                 // Update the count on the page
@@ -265,7 +263,7 @@
 
         // Call the function on page load
         window.onload = updateVisitorCount;
-   </script>
+    </script>
 	
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
