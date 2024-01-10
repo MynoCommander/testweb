@@ -248,33 +248,31 @@
         <i><a href="https://discord.gg/9FFDd3y9Rv" target="_BLANK">Discord</a></i>
     </div>
    <script>
-	const updateVisitorCount = async () => {
-    try {
-        const response = await fetch('counter.txt');
-        let count = await response.text();
-        
-        // Parse count as an integer or default to 0 if not a valid number
-        count = parseInt(count, 10) || 0;
+        const updateVisitorCount = async () => {
+            try {
+                // Synchronous request to ensure count is fetched before displaying
+                const response = await fetch('counter.txt');
+                const count = parseInt(await response.text(), 10) || 0;
 
-        // Update the count on the page
-        document.getElementById('viewCount').innerText = count;
+                // Update the count on the page
+                document.getElementById('viewCount').innerText = count;
 
-        // Increment the count
-        const updatedCount = count + 1;
+                // Increment the count
+                const updatedCount = count + 1;
 
-        // Update the count in the file
-        await fetch('counter.txt', {
-            method: 'PUT',
-            body: updatedCount.toString(),
-        });
-    } catch (error) {
-        console.error('Error updating visitor count:', error);
-    }
-};
+                // Update the count in the file
+                await fetch('counter.txt', {
+                    method: 'PUT',
+                    body: updatedCount.toString(),
+                });
+            } catch (error) {
+                console.error('Error updating visitor count:', error);
+            }
+        };
 
-// Call the function on page load
-window.onload = updateVisitorCount;
-</script>
+        // Call the function on page load
+        window.onload = updateVisitorCount;
+    </script>
 	
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
