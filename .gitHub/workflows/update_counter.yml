@@ -1,0 +1,22 @@
+name: Update Visitor Count
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-counter:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update visitor count
+      run: |
+        count=$(cat counter.txt)
+        echo $((count + 1)) > counter.txt
+        git add counter.txt
+        git -c user.name='GitHub Actions' -c user.email='actions@github.com' commit -m "Update visitor count" || true
+        git push
+        
