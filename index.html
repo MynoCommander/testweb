@@ -250,8 +250,9 @@
    <script>
         const updateVisitorCount = async () => {
             try {
-                // Synchronous request to ensure count is fetched before displaying
-                const response = await fetch('counter.txt');
+                // Cache-busting mechanism
+                const cacheBuster = new Date().getTime();
+                const response = await fetch(`counter.txt?cb=${cacheBuster}`);
                 const count = parseInt(await response.text(), 10) || 0;
 
                 // Update the count on the page
